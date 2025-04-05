@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> 
+    <title>Card Searching in Bootstrap & JS</title>
+
+</head>
+<style>
+    .notfound{
+        transition: all 0.5s ease-in-out;
+        cursor: pointer;
+        box-shadow: 0px 0px 6px -4px rgba(0,0,0,0.75);
+        border-radius: 10px;
+    }
+.notfound:hover{
+    box-shadow: 0px 0px 51px -36px rgba(0,0,0,1);
+}
+
+</style>
+
+<body>
+
+    <h2 class="text-center mt-2">Product Searching    </h2>
+
+    <input type="text" class="form-control mt-3 mx-auto" id="myinput" placeholder="Live searching...." style="width:30%;">
+
+
+      <div class="container mb-5">
+    <h3 class="text-danger mt-5 text-center" id="para" style="display: none;">Not Found </h3>
+    
+    <div class="row mt-3" id="notfound">
+
+    </div>
+
+</div>
+
+
+
+<script>
+    // filter array -
+let filterarray =[];
+
+// gallery card array
+
+let galleryarray = [
+    {
+        id:1,
+        name : "samsung watch",
+        src: "./image/products/smartwatch/smartwatch1.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:2,
+        name : "iphone 13 pro mobile",
+        src: "./image/products/5.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:3,
+        name : "iphone 11 mobile",
+        src: "./image/products/15.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:4,
+        name : "simple white watch",
+        src: "./image/products/smartwatch/smartwatch2.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:5,
+        name : "headphone",
+        src: "./image/products/headphones/apple.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:6,
+        name : "headphone",
+        src: "./image/products/headphones/boat1.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:7,
+        name : "headphone",
+        src: "./image/products/headphones/headphones0.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:8,
+        name : "headphone",
+        src: "./image/products/headphones/noise.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:9,
+        name : "headphone",
+        src: "./image/products/headphones/oneplus nord wired.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:10,
+        name : "headphone",
+        src: "./image/products/headphones/sony.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:11,
+        name : "headphone",
+        src: "./image/products/headphones/UBL.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:12,
+        name : "smart watch",
+        src: "./image/products/smartwatch/smartwatch3.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:13,
+        name : "chargers",
+        src: "./image/products/chargers/lyne0.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:14,
+        name : "chargers",
+        src: "./image/products/chargers/lyne1.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:15,
+        name : "chargers",
+        src: "./image/products/chargers/lyne2.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:16,
+        name : "chargers",
+        src: "./image/products/chargers/lyne3.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:17,
+        name : "charger lyne",
+        src: "./image/products/chargers/lyne4.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:18,
+        name : "chargers lyne",
+        src: "./image/products/chargers/lyne5.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:19,
+        name : "charger lyne",
+        src: "./image/products/chargers/lyne6.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:20,
+        name : "charger lyne",
+        src: "./image/products/chargers/lyne24.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:21,
+        name : "chargers",
+        src: "./image/products/chargers/Oneplus.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:22,
+        name : "chargers",
+        src: "./image/products/chargers/Oneplus0.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:23,
+        name : "chargers oneplus",
+        src: "./image/products/chargers/Oneplus1.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:24,
+        name : "chargers",
+        src: "./image/products/chargers/Oneplus65.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:25,
+        name : "chargers ",
+        src: "./image/products/chargers/Oneplus1.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:26,
+        name : "burds boat  ",
+        src: "./image/products/burds/boat0.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:27,
+        name : "burds boat  ",
+        src: "./image/products/burds/boat1.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:28,
+        name : "burds boat  ",
+        src: "./image/products/burds/boat2.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:29,
+        name : "burds boat  ",
+        src: "./image/products/burds/boat3.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:30,
+        name : "burds boat  ",
+        src: "./image/products/burds/boat4.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:31,
+        name : "burds boat  ",
+        src: "./image/products/burds/boat5.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:32,
+        name : "burds boat noise ",
+        src: "./image/products/burds/noise.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:33,
+        name : "burds boat realme ",
+        src: "./image/products/burds/realme.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    },
+    {
+        id:28,
+        name : "burds boat redmi ",
+        src: "./image/products/burds/redmi.png",
+        desc : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eligendi, delectus."
+    }
+
+
+   ];
+
+
+
+showgallery(galleryarray);
+
+
+// create function to show products
+
+
+function showgallery(curarra){
+   document.getElementById("notfound").innerText = "";
+   for(var i=0;i<curarra.length;i++){
+       document.getElementById("notfound").innerHTML += `
+        <div class="col-md-4 mt-3" >
+           <div class="notfound p-3 ps-5 pe-5">
+               <h4 class="text-capitalize text-center">${curarra[i].name}</h4>
+
+          <img src="${curarra[i].src}" width="100%" height="320px"/>
+          <p class="mt-2">${curarra[i].desc}</p>
+          <button class="btn btn-primary w-100 mx-auto">Read More</button>
+       
+          </div>
+          </div>
+       `
+   }
+
+}
+
+// For Live Searching Product
+
+document.getElementById("myinput").addEventListener("keyup",function(){
+    let text = document.getElementById("myinput").value;
+
+    filterarray= galleryarray.filter(function(a){
+        if(a.name.includes(text)){
+            return a.name;
+           }
+
+   });
+   if(this.value==""){
+       showgallery(galleryarray);
+   }
+   else{
+       if(filterarray == ""){
+           document.getElementById("para").style.display = 'block'
+           document.getElementById("notfound").innerHTML = ""; 
+       }
+       else{
+
+           showgallery(filterarray);
+           document.getElementById("para").style.display = 'none'
+       }
+   }
+
+});
+
+
+
+</script>
+    
+</body>
+</html>
